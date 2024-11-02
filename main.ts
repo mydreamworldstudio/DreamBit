@@ -1,12 +1,12 @@
 //% color=#0fbc11 icon="\uf1b9" block="Motor Driver"
 namespace MotorDriver {
     // Define pins for Motor A and Motor B
-    let ENA_PIN = AnalogPin.P0; // Speed control for Motor A
-    let IN1_PIN = DigitalPin.P1; // Direction control for Motor A
-    let IN2_PIN = DigitalPin.P2; // Direction control for Motor A
+    let ENA_PIN = AnalogPin.P13; // Speed control for Motor A
+    let IN1_PIN = DigitalPin.P9; // Direction control for Motor A
+    let IN2_PIN = DigitalPin.P12; // Direction control for Motor A
 
-    let ENB_PIN = AnalogPin.P8; // Speed control for Motor B
-    let IN3_PIN = DigitalPin.P12; // Direction control for Motor B
+    let ENB_PIN = AnalogPin.P14; // Speed control for Motor B
+    let IN3_PIN = DigitalPin.P15; // Direction control for Motor B
     let IN4_PIN = DigitalPin.P16; // Direction control for Motor B
 
     /**
