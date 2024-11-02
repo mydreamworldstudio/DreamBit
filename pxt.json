@@ -1,0 +1,11 @@
+{
+    "name": "DreamBit Extension",
+    "version": "0.0.1",
+    "description": "A custom extension for the micro:bit to control motor",
+    "dependencies": {
+        "core": "*"
+    },
+    "files": [
+        "main.ts"
+    ]
+}
