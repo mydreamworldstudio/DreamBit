@@ -1,80 +1,52 @@
-//% color=#0fbc11 icon="\uf1b9" block="DreamBit"
-namespace dreambit {
+//% color=#ff6f61 icon="\uf135" block="Dreambit"
+namespace Dreambit {
 
-    // Motor pin declarations (internal use, not shown as blocks)
-    let ENA_PIN = AnalogPin.P13;
-    let IN1_PIN = DigitalPin.P9;
-    let IN2_PIN = DigitalPin.P12;
-    let ENB_PIN = AnalogPin.P14;
-    let IN3_PIN = DigitalPin.P15;
-    let IN4_PIN = DigitalPin.P16;
+    // Motor Driver Submodule
+    //% color=#0fbc11 icon="\uf1b9" block="Motor Driver"
+    export namespace MotorDriver {
+        const ENA = AnalogPin.P13;
+        const IN1 = DigitalPin.P9;
+        const IN2 = DigitalPin.P12;
+        const ENB = AnalogPin.P14;
+        const IN3 = DigitalPin.P15;
+        const IN4 = DigitalPin.P16;
 
-    // --- GEAR MOTORS GROUP ---
-
-    /**
-     * Set Motor A speed and direction
-     */
-    //% block="Set Motor A speed to $speed"
-    //% group="Gear Motors"
-    //% blockNamespace="dreambit"
-    //% speed.min=-100 speed.max=100
-    export function setMotorASpeed(speed: number): void {
-        setMotorSpeed(speed, ENA_PIN, IN1_PIN, IN2_PIN);
-    }
-
-    /**
-     * Set Motor B speed and direction
-     */
-    //% block="Set Motor B speed to $speed"
-    //% group="Gear Motors"
-    //% blockNamespace="dreambit"
-    //% speed.min=-100 speed.max=100
-    export function setMotorBSpeed(speed: number): void {
-        setMotorSpeed(speed, ENB_PIN, IN3_PIN, IN4_PIN);
-    }
-
-    /**
-     * Set both motors' speed and direction
-     */
-    //% block="Set Motor A speed to $speedA and Motor B speed to $speedB"
-    //% group="Gear Motors"
-    //% blockNamespace="dreambit"
-    //% speedA.min=-100 speedA.max=100
-    //% speedB.min=-100 speedB.max=100
-    export function setBothMotorSpeeds(speedA: number, speedB: number): void {
-        setMotorSpeed(speedA, ENA_PIN, IN1_PIN, IN2_PIN);
-        setMotorSpeed(speedB, ENB_PIN, IN3_PIN, IN4_PIN);
-    }
-
-    /**
-     * Stop both motors
-     */
-    //% block="Stop both motors"
-    //% group="Gear Motors"
-    //% blockNamespace="dreambit"
-    export function stopMotors(): void {
-        pins.analogWritePin(ENA_PIN, 0);
-        pins.analogWritePin(ENB_PIN, 0);
-    }
-
-    // Internal helper
-    function setMotorSpeed(speed: number, enPin: AnalogPin, in1: DigitalPin, in2: DigitalPin): void {
-        if (speed < 0) {
-            pins.digitalWritePin(in1, 0);
-            pins.digitalWritePin(in2, 1);
-        } else {
-            pins.digitalWritePin(in1, 1);
-            pins.digitalWritePin(in2, 0);
+        //% block="set Motor A speed to %speed"
+        //% speed.min=-100 speed.max=100
+        //% group="Motors"
+        export function setMotorASpeed(speed: number): void {
+            setMotorSpeed(speed, ENA, IN1, IN2);
         }
-        pins.analogWritePin(enPin, Math.map(Math.abs(speed), 0, 100, 0, 1023));
+
+        //% block="set Motor B speed to %speed"
+        //% speed.min=-100 speed.max=100
+        //% group="Motors"
+        export function setMotorBSpeed(speed: number): void {
+            setMotorSpeed(speed, ENB, IN3, IN4);
+        }
+
+        //% block="stop both motors"
+        //% group="Motors"
+        export function stopMotors(): void {
+            pins.analogWritePin(ENA, 0);
+            pins.analogWritePin(ENB, 0);
+        }
+
+        function setMotorSpeed(speed: number, en: AnalogPin, in1: DigitalPin, in2: DigitalPin): void {
+            if (speed < 0) {
+                pins.digitalWritePin(in1, 0);
+                pins.digitalWritePin(in2, 1);
+            } else {
+                pins.digitalWritePin(in1, 1);
+                pins.digitalWritePin(in2, 0);
+            }
+            pins.analogWritePin(en, Math.map(Math.abs(speed), 0, 100, 0, 1023));
+        }
     }
 
-    // --- ULTRASONIC SENSOR GROUP ---
-
-    //% block="μs"
-    //% group="Ultrasonic Sensor"
-    //% blockNamespace="dreambit"
+    // Sonar Submodule
     export enum PingUnit {
+        //% block="μs"
         MicroSeconds,
         //% block="cm"
         Centimeters,
@@ -82,26 +54,24 @@ namespace dreambit {
         Inches
     }
 
-    /**
-     * Send a ping and get the distance.
-     */
-    //% blockId=sonar_ping block="ping trig %trig|echo %echo|unit %unit"
-    //% group="Ultrasonic Sensor"
-    //% blockNamespace="dreambit"
-    export function ping(trig: DigitalPin, echo: DigitalPin, unit: PingUnit, maxCmDistance = 500): number {
-        pins.setPull(trig, PinPullMode.PullNone);
-        pins.digitalWritePin(trig, 0);
-        control.waitMicros(2);
-        pins.digitalWritePin(trig, 1);
-        control.waitMicros(10);
-        pins.digitalWritePin(trig, 0);
+    //% color=#0fbc11 icon="" block="Ultrasonic Sensor"
+    export namespace Sonar {
+        //% block="ping trig %trig|echo %echo|unit %unit"
+        //% group="Ultrasonic Sensor"
+        export function ping(trig: DigitalPin, echo: DigitalPin, unit: PingUnit, maxCmDistance = 500): number {
+            pins.setPull(trig, PinPullMode.PullNone);
+            pins.digitalWritePin(trig, 0);
+            control.waitMicros(2);
+            pins.digitalWritePin(trig, 1);
+            control.waitMicros(10);
+            pins.digitalWritePin(trig, 0);
 
-        let d = pins.pulseIn(echo, PulseValue.High, maxCmDistance * 58);
-
-        switch (unit) {
-            case PingUnit.Centimeters: return d / 58;
-            case PingUnit.Inches: return d / 148;
-            default: return d;
+            let d = pins.pulseIn(echo, PulseValue.High, maxCmDistance * 58);
+            switch (unit) {
+                case PingUnit.Centimeters: return d / 58;
+                case PingUnit.Inches: return d / 148;
+                default: return d;
+            }
         }
     }
 }
