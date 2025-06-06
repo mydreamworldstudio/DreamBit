@@ -69,6 +69,81 @@ namespace MotorDriver {
 }
 
 
+//% color=#3674bf icon="\uf085" block="DreamBit Servo"
+namespace ServoControl {
+
+    export enum ServoType {
+        //% block="180°"
+        Servo180 = 180,
+        //% block="270°"
+        Servo270 = 270,
+        //% block="360°"
+        Servo360 = 360
+    }
+
+    export enum ServoDirection {
+        //% block="forward"
+        Forward,
+        //% block="reverse"
+        Reverse,
+        //% block="stop"
+        Stop
+    }
+
+    // Limit pin selection to specific pins only
+    export enum ServoPin {
+        //% block="P0"
+        P0 = AnalogPin.P0,
+        //% block="P1"
+        P1 = AnalogPin.P1,
+        //% block="P2"
+        P2 = AnalogPin.P2,
+        //% block="P8"
+        P8 = AnalogPin.P8
+    }
+
+    /**
+     * Set the angle of a standard servo (180°, 270°, or 360°) connected to the selected pin.
+     */
+    //% block="Set %servoType servo on pin %pin to %angle°"
+    //% angle.min=0 angle.max=360
+    //% group="Standard Servo"
+    export function setServoAngle(servoType: ServoType, pin: ServoPin, angle: number): void {
+        let maxAngle = servoType as number;
+        angle = Math.clamp(0, maxAngle, angle);
+
+        // Map angle to pulse width range (0.5ms–2.5ms)
+        const pulse = Math.map(angle, 0, maxAngle, 500, 2500);
+        pins.servoSetPulse(pin, pulse);
+    }
+
+    /**
+     * Control a 360° continuous rotation servo using direction and speed.
+     */
+    //% block="Set continuous servo on pin %pin direction %direction with speed %speed"
+    //% speed.min=0 speed.max=100
+    //% group="Continuous Servo"
+    export function controlContinuousServo(pin: ServoPin, direction: ServoDirection, speed: number): void {
+        speed = Math.clamp(0, 100, speed);
+        let angle = 90;
+
+        switch (direction) {
+            case ServoDirection.Forward:
+                angle = Math.map(speed, 0, 100, 90, 0);
+                break;
+            case ServoDirection.Reverse:
+                angle = Math.map(speed, 0, 100, 90, 180);
+                break;
+            case ServoDirection.Stop:
+                angle = 90;
+                break;
+        }
+
+        pins.servoWritePin(pin, angle);
+    }
+}
+
+
 //% color=#00008a icon="\uf06e" block="DreamBit Sonar"
 namespace sonar {
 
@@ -115,3 +190,4 @@ namespace sonar {
         }
     }
 }
+
