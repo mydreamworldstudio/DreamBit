@@ -34,8 +34,11 @@ The **DreamBit Extension** lets you control DC motors and read distance from an 
 
 ## 🛠️ Requirements
 BBC micro:bit (v1 or v2)
+
 DreamBit Extension Board
+
 Ultrasonic sensor (HC-SR04 recommended)
+
 External 6-12V power supply for motors
 
 ---
