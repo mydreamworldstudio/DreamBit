@@ -48,17 +48,24 @@ namespace GearMotor {
 
 // --- Sonar Section ---
 
-enum PingUnit {
-    //% block="μs"
-    MicroSeconds,
-    //% block="cm"
-    Centimeters,
-    //% block="inches"
-    Inches
-}
-
 //% color=#0fbc11 icon="\uf2db" block="Sonar Sensor"
 namespace sonar {
+    export enum PingUnit {
+        //% block="μs"
+        MicroSeconds,
+        //% block="cm"
+        Centimeters,
+        //% block="inches"
+        Inches
+    }
+
+    /**
+     * Send a ping and get the distance.
+     * @param trig trigger pin
+     * @param echo echo pin
+     * @param unit desired unit
+     * @param maxCmDistance maximum distance in centimeters (default is 500)
+     */
     //% blockId=sonar_ping block="ping trig %trig|echo %echo|unit %unit"
     //% weight=90
     export function ping(trig: DigitalPin, echo: DigitalPin, unit: PingUnit, maxCmDistance = 500): number {
