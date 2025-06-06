@@ -6,6 +6,7 @@
         "core": "*"
     },
     "files": [
-        "main.ts"
+        "main.ts",
+        "README.md"
     ]
 }
