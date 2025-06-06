@@ -2,13 +2,13 @@
 //% color=#0000ff icon="\uf1b9" block="DreamBit Motor"
 namespace MotorDriver {
     // Define pins for Motor A and Motor B
-    let ENA_PIN = AnalogPin.P13; // Speed control for Motor A
-    let IN1_PIN = DigitalPin.P9; // Direction control for Motor A
-    let IN2_PIN = DigitalPin.P12; // Direction control for Motor A
+    let ENA_PIN = AnalogPin.P14; // Speed control for Motor A
+    let IN1_PIN = DigitalPin.P15; // Direction control for Motor A
+    let IN2_PIN = DigitalPin.P16; // Direction control for Motor A
 
-    let ENB_PIN = AnalogPin.P14; // Speed control for Motor B
-    let IN3_PIN = DigitalPin.P15; // Direction control for Motor B
-    let IN4_PIN = DigitalPin.P16; // Direction control for Motor B
+    let ENB_PIN = AnalogPin.P13; // Speed control for Motor B
+    let IN3_PIN = DigitalPin.P9; // Direction control for Motor B
+    let IN4_PIN = DigitalPin.P12; // Direction control for Motor B
 
     /**
      * Stop both motors
@@ -71,6 +71,7 @@ namespace MotorDriver {
 
 //% color=#00008a icon="\uf06e" block="DreamBit Sonar"
 namespace sonar {
+
     export enum PingUnit {
         //% block="μs"
         MicroSeconds,
@@ -80,16 +81,24 @@ namespace sonar {
         Inches
     }
 
-    /**
-     * Send a ping and get the distance.
-     * @param trig trigger pin
-     * @param echo echo pin
-     * @param unit desired unit
-     * @param maxCmDistance maximum distance in centimeters (default is 500)
-     */
+    export enum SonarPin {
+        //% block="P0"
+        P0 = DigitalPin.P0,
+        //% block="P1"
+        P1 = DigitalPin.P1,
+        //% block="P2"
+        P2 = DigitalPin.P2,
+        //% block="P5"
+        P5 = DigitalPin.P5,
+        //% block="P8"
+        P8 = DigitalPin.P8,
+        //% block="P11"
+        P11 = DigitalPin.P11
+    }
+
     //% blockId=sonar_ping block="ping trig %trig|echo %echo|unit %unit"
     //% weight=90
-    export function ping(trig: DigitalPin, echo: DigitalPin, unit: PingUnit, maxCmDistance = 500): number {
+    export function ping(trig: SonarPin, echo: SonarPin, unit: PingUnit, maxCmDistance = 500): number {
         pins.setPull(trig, PinPullMode.PullNone);
         pins.digitalWritePin(trig, 0);
         control.waitMicros(2);
