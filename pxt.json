@@ -1,12 +1,15 @@
 {
-    "name": "DreamBit Extension",
+    "name": "DreamBit",
     "version": "0.0.1",
-    "description": "A custom extension for the micro:bit to control gear motor, servo motor and sonar sensor",
+    "description": "A custom extension for the micro:bit to control gear motors, servo motors, and ultrasonic sonar sensors.",
     "dependencies": {
         "core": "*"
     },
     "files": [
         "main.ts",
         "README.md"
-    ]
+    ],
+    "icon": "https://raw.githubusercontent.com/mydreamworldstudio/DreamBit/main/dreambit.png",
+    "homepage": "https://github.com/mydreamworldstudio/DreamBit",
+    "license": "MIT"
 }
