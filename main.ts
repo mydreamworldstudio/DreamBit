@@ -11,23 +11,12 @@ namespace MotorDriver {
     let IN4_PIN = DigitalPin.P16; // Direction control for Motor B
 
     /**
-     * Set Motor A speed and direction
-     * @param speed -100 to 100, where positive is forward and negative is backward
+     * Stop both motors
      */
-    //% block="Set Motor A speed to $speed"
-    //% speed.min=-100 speed.max=100
-    export function setMotorASpeed(speed: number): void {
-        setMotorSpeed(speed, ENA_PIN, IN1_PIN, IN2_PIN);
-    }
-
-    /**
-     * Set Motor B speed and direction
-     * @param speed -100 to 100, where positive is forward and negative is backward
-     */
-    //% block="Set Motor B speed to $speed"
-    //% speed.min=-100 speed.max=100
-    export function setMotorBSpeed(speed: number): void {
-        setMotorSpeed(speed, ENB_PIN, IN3_PIN, IN4_PIN);
+    //% block="Stop both motors"
+    export function stopMotors(): void {
+        pins.analogWritePin(ENA_PIN, 0);
+        pins.analogWritePin(ENB_PIN, 0);
     }
 
     /**
@@ -42,14 +31,25 @@ namespace MotorDriver {
         setMotorSpeed(speedA, ENA_PIN, IN1_PIN, IN2_PIN);
         setMotorSpeed(speedB, ENB_PIN, IN3_PIN, IN4_PIN);
     }
-
-    /**
-     * Stop both motors
+    
+     /**
+     * Set Motor B speed and direction
+     * @param speed -100 to 100, where positive is forward and negative is backward
      */
-    //% block="Stop both motors"
-    export function stopMotors(): void {
-        pins.analogWritePin(ENA_PIN, 0);
-        pins.analogWritePin(ENB_PIN, 0);
+    //% block="Set Motor B speed to $speed"
+    //% speed.min=-100 speed.max=100
+    export function setMotorBSpeed(speed: number): void {
+        setMotorSpeed(speed, ENB_PIN, IN3_PIN, IN4_PIN);
+    }
+    
+     /**
+     * Set Motor A speed and direction
+     * @param speed -100 to 100, where positive is forward and negative is backward
+     */
+    //% block="Set Motor A speed to $speed"
+    //% speed.min=-100 speed.max=100
+    export function setMotorASpeed(speed: number): void {
+        setMotorSpeed(speed, ENA_PIN, IN1_PIN, IN2_PIN);
     }
 
     // Helper function to set motor speed and direction
