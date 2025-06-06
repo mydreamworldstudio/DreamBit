@@ -1,12 +1,11 @@
 {
-  "name": "dreambit",
-  "description": "Motor driver and ultrasonic sensor for Dreambit robots.",
-  "files": [
-    "main.ts"
-  ],
-  "targetVersions": {
-    "branch": "v3.0.0",
-    "tag": "v3.0.10",
-    "target": "microbit"
-  }
+    "name": "DreamBit Extension",
+    "version": "0.0.1",
+    "description": "A custom extension for the micro:bit to control motor and sonar sensor",
+    "dependencies": {
+        "core": "*"
+    },
+    "files": [
+        "main.ts"
+    ]
 }
