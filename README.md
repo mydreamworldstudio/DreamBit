@@ -2,17 +2,28 @@
 
 ![DreamBit Banner](https://raw.githubusercontent.com/mydreamworldstudio/DreamBit/main/dreambit.png)
 
-The **DreamBit Extension** lets you control DC motors and read distance from an ultrasonic sensor using the BBC micro:bit. Designed for educational robotics projects, it’s perfect for students learning coding, electronics, and AI.
+The **DreamBit Extension** brings motor control, ultrasonic distance sensing, and servo motor capabilities to your BBC micro:bit. Designed especially for classroom and STEM robotics projects, it helps students explore coding, electronics, and AI with ease.
+
 
 ---
 
 ## 🚀 Features
 
-- Control two gear motors with speed and direction
-- Stop all motors with a single block
-- Read distance using ultrasonic sonar sensor (in cm, inches, or microseconds)
-- Easy-to-use MakeCode blocks
-- Designed for classroom and STEM projects
+🔁 DC Gear Motor Control: Set speed and direction for Motor A and Motor B
+
+🛑 Motor Stop: Stop all motors instantly with one block
+
+📏 Ultrasonic Sensor (HC-SR04): Measure distance in cm, inches, or μs
+
+🔄 Servo Motor Control:
+
+Set angle for 180°, 270°, or 360° servos
+
+Drive 360° continuous servos with direction and speed control
+
+🧩 Easy-to-use MakeCode blocks
+
+👨‍🏫 Ideal for students, makers, and robotics classes
 
 ---
 
@@ -28,7 +39,7 @@ The **DreamBit Extension** lets you control DC motors and read distance from an 
 2. Click on `Advanced` → `Extensions`
 3. Paste this link:  
    `https://github.com/mydreamworldstudio/DreamBit`
-4. Use the `DreamBit Motor` and `DreamBit Sonar` blocks in your project
+4. Use the `DreamBit Motor`, `DreamBit Servo` and `DreamBit Sonar` blocks in your project
 
 ---
 
@@ -36,6 +47,8 @@ The **DreamBit Extension** lets you control DC motors and read distance from an 
 BBC micro:bit (v1 or v2)
 
 DreamBit Extension Board
+
+Servo motors (standard or 360° continuous)
 
 Ultrasonic sensor (HC-SR04 recommended)
 
@@ -47,7 +60,7 @@ External 6-12V power supply for motors
 Learn more: [www.dreamworldrobotics.com](https://dreamworldrobotics.com/)
 ---
 
-## License
+## 📄 License
 MIT
 
 ---
@@ -55,11 +68,17 @@ MIT
 ## 🧪 Sample Code
 
 ```ts
+// Motor Control Example
 GearMotor.setMotorASpeed(80)
 GearMotor.setMotorBSpeed(-80)
 basic.pause(1000)
 GearMotor.stopMotors()
 
+// Sonar Distance Example
 let distance = sonar.ping(DigitalPin.P1, DigitalPin.P2, PingUnit.Centimeters)
 basic.showNumber(distance)
+
+// Servo Angle Control Example
+ServoControl.setServoAngle(ServoControl.Servo180, AnalogPin.P0, 90)
+
 
