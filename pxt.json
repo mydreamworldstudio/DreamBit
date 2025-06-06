@@ -9,7 +9,7 @@
         "main.ts",
         "README.md"
     ],
-    "icon": "https://raw.githubusercontent.com/mydreamworldstudio/DreamBit/main/dreambit.png",
+    "icon": "https://raw.githubusercontent.com/mydreamworldstudio/DreamBit/main/icon.png",
     "homepage": "https://github.com/mydreamworldstudio/DreamBit",
     "license": "MIT"
 }
