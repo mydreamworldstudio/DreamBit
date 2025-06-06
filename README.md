@@ -45,6 +45,8 @@ Dream World Robotics
 Learn more: [www.dreamworldrobotics.com](https://dreamworldrobotics.com/)
 ---
 
+## License
+MIT
 
 ## 🧪 Sample Code
 
