@@ -32,6 +32,20 @@ The **DreamBit Extension** lets you control DC motors and read distance from an 
 
 ---
 
+## 🛠️ Requirements
+BBC micro:bit (v1 or v2)
+DreamBit Extension Board
+Ultrasonic sensor (HC-SR04 recommended)
+External 6-12V power supply for motors
+
+---
+
+💡 Created by
+Dream World Robotics
+Learn more: [www.dreamworldrobotics.com](https://dreamworldrobotics.com/)
+---
+
+
 ## 🧪 Sample Code
 
 ```ts
@@ -43,14 +57,3 @@ GearMotor.stopMotors()
 let distance = sonar.ping(DigitalPin.P1, DigitalPin.P2, PingUnit.Centimeters)
 basic.showNumber(distance)
 
-
-**##** 🛠️ **Requirements**
-BBC micro:bit (v1 or v2)
-DreamBit Extension Board
-Ultrasonic sensor (HC-SR04 recommended)
-External 6-12V power supply for motors
-
-
-💡 Created by
-Dream World Robotics
-Learn more: [www.dreamworldrobotics.com](https://dreamworldrobotics.com/)
