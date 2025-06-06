@@ -43,10 +43,7 @@ External 6-12V power supply for motors
 
 ---
 
-💡 Created by
-
-Dream World Robotics
-
+💡 **Created by Dream World Robotics**
 Learn more: [www.dreamworldrobotics.com](https://dreamworldrobotics.com/)
 
 ---
