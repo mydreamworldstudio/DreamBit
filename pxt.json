@@ -1,6 +1,6 @@
 {
     "name": "DreamBit",
-    "version": "0.0.1",
+    "version": "1.3.2",
     "description": "A custom extension for the micro:bit to control gear motors, servo motors, and ultrasonic sonar sensors.",
     "dependencies": {
         "core": "*"
