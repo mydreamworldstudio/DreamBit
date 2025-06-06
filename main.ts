@@ -1,6 +1,5 @@
-//% color=#0fbc11 icon="\uf1b9" block="Dreambit"
-namespace dreambit {
-    // Define pins for Motor A and Motor B
+//% color=#0fbc11 icon="\uf1b9" block="Gear Motors"
+namespace GearMotor {
     let ENA_PIN = AnalogPin.P13;
     let IN1_PIN = DigitalPin.P9;
     let IN2_PIN = DigitalPin.P12;
@@ -9,28 +8,19 @@ namespace dreambit {
     let IN3_PIN = DigitalPin.P15;
     let IN4_PIN = DigitalPin.P16;
 
-    /**
-     * Set Motor A speed and direction
-     */
-    //% block="Set Motor A speed to %speed"
+    //% block="Set Motor A speed to $speed"
     //% speed.min=-100 speed.max=100
     export function setMotorASpeed(speed: number): void {
         setMotorSpeed(speed, ENA_PIN, IN1_PIN, IN2_PIN);
     }
 
-    /**
-     * Set Motor B speed and direction
-     */
-    //% block="Set Motor B speed to %speed"
+    //% block="Set Motor B speed to $speed"
     //% speed.min=-100 speed.max=100
     export function setMotorBSpeed(speed: number): void {
         setMotorSpeed(speed, ENB_PIN, IN3_PIN, IN4_PIN);
     }
 
-    /**
-     * Set both motor speeds
-     */
-    //% block="Set Motor A speed to %speedA and Motor B speed to %speedB"
+    //% block="Set Motor A speed to $speedA and Motor B speed to $speedB"
     //% speedA.min=-100 speedA.max=100
     //% speedB.min=-100 speedB.max=100
     export function setBothMotorSpeeds(speedA: number, speedB: number): void {
@@ -38,9 +28,6 @@ namespace dreambit {
         setMotorSpeed(speedB, ENB_PIN, IN3_PIN, IN4_PIN);
     }
 
-    /**
-     * Stop both motors
-     */
     //% block="Stop both motors"
     export function stopMotors(): void {
         pins.analogWritePin(ENA_PIN, 0);
@@ -57,22 +44,22 @@ namespace dreambit {
         }
         pins.analogWritePin(enPin, Math.map(Math.abs(speed), 0, 100, 0, 1023));
     }
+}
 
-    // --- Ultrasonic Sensor ---
+// --- Sonar Section ---
 
-    export enum PingUnit {
-        //% block="μs"
-        MicroSeconds,
-        //% block="cm"
-        Centimeters,
-        //% block="inches"
-        Inches
-    }
+enum PingUnit {
+    //% block="μs"
+    MicroSeconds,
+    //% block="cm"
+    Centimeters,
+    //% block="inches"
+    Inches
+}
 
-    /**
-     * Measure distance using ultrasonic sensor
-     */
-    //% block="Ping trig %trig|echo %echo|unit %unit"
+//% color=#0fbc11 icon="\uf2db" block="Sonar Sensor"
+namespace sonar {
+    //% blockId=sonar_ping block="ping trig %trig|echo %echo|unit %unit"
     //% weight=90
     export function ping(trig: DigitalPin, echo: DigitalPin, unit: PingUnit, maxCmDistance = 500): number {
         pins.setPull(trig, PinPullMode.PullNone);
@@ -82,7 +69,7 @@ namespace dreambit {
         control.waitMicros(10);
         pins.digitalWritePin(trig, 0);
 
-        let d = pins.pulseIn(echo, PulseValue.High, maxCmDistance * 58);
+        const d = pins.pulseIn(echo, PulseValue.High, maxCmDistance * 58);
 
         switch (unit) {
             case PingUnit.Centimeters: return d / 58;
