@@ -1,5 +1,5 @@
 
-//% color=#0fbc11 icon="\uf1b9" block="Motor Driver"
+//% color=#0000ff icon="\uf1b9" block="DreamBit Motor"
 namespace MotorDriver {
     // Define pins for Motor A and Motor B
     let ENA_PIN = AnalogPin.P13; // Speed control for Motor A
@@ -69,7 +69,7 @@ namespace MotorDriver {
 }
 
 
-//% color=#0fbc11 icon="\uf2db" block="Sonar Sensor"
+//% color=#00008a icon="\uf06e" block="DreamBit Sonar"
 namespace sonar {
     export enum PingUnit {
         //% block="μs"
