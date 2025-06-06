@@ -67,3 +67,42 @@ namespace MotorDriver {
         pins.analogWritePin(enPin, Math.map(Math.abs(speed), 0, 100, 0, 1023));
     }
 }
+
+
+//% color=#0fbc11 icon="\uf2db" block="Sonar Sensor"
+namespace sonar {
+    export enum PingUnit {
+        //% block="μs"
+        MicroSeconds,
+        //% block="cm"
+        Centimeters,
+        //% block="inches"
+        Inches
+    }
+
+    /**
+     * Send a ping and get the distance.
+     * @param trig trigger pin
+     * @param echo echo pin
+     * @param unit desired unit
+     * @param maxCmDistance maximum distance in centimeters (default is 500)
+     */
+    //% blockId=sonar_ping block="ping trig %trig|echo %echo|unit %unit"
+    //% weight=90
+    export function ping(trig: DigitalPin, echo: DigitalPin, unit: PingUnit, maxCmDistance = 500): number {
+        pins.setPull(trig, PinPullMode.PullNone);
+        pins.digitalWritePin(trig, 0);
+        control.waitMicros(2);
+        pins.digitalWritePin(trig, 1);
+        control.waitMicros(10);
+        pins.digitalWritePin(trig, 0);
+
+        const d = pins.pulseIn(echo, PulseValue.High, maxCmDistance * 58);
+
+        switch (unit) {
+            case PingUnit.Centimeters: return d / 58;
+            case PingUnit.Inches: return d / 148;
+            default: return d;
+        }
+    }
+}
