@@ -1,11 +1,16 @@
 {
     "name": "DreamBit Extension",
     "version": "0.0.1",
-    "description": "A custom extension for the micro:bit to control motor",
+    "description": "A custom extension for the micro:bit to control motor and ultrasonic sensor",
     "dependencies": {
         "core": "*"
     },
     "files": [
         "main.ts"
+    ],
+    "keywords": [
+        "motor",
+        "ultrasonic",
+        "sonar"
     ]
 }
