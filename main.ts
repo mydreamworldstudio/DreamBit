@@ -1,26 +1,22 @@
 //% color=#0fbc11 icon="\uf1b9" block="DreamBit"
 namespace dreambit {
 
-    // --- GEAR MOTORS GROUP ---
-
-    //% group="Gear Motors"
+    // Motor pin declarations (internal use, not shown as blocks)
     let ENA_PIN = AnalogPin.P13;
-    //% group="Gear Motors"
     let IN1_PIN = DigitalPin.P9;
-    //% group="Gear Motors"
     let IN2_PIN = DigitalPin.P12;
-    //% group="Gear Motors"
     let ENB_PIN = AnalogPin.P14;
-    //% group="Gear Motors"
     let IN3_PIN = DigitalPin.P15;
-    //% group="Gear Motors"
     let IN4_PIN = DigitalPin.P16;
+
+    // --- GEAR MOTORS GROUP ---
 
     /**
      * Set Motor A speed and direction
      */
     //% block="Set Motor A speed to $speed"
     //% group="Gear Motors"
+    //% blockNamespace="dreambit"
     //% speed.min=-100 speed.max=100
     export function setMotorASpeed(speed: number): void {
         setMotorSpeed(speed, ENA_PIN, IN1_PIN, IN2_PIN);
@@ -31,16 +27,18 @@ namespace dreambit {
      */
     //% block="Set Motor B speed to $speed"
     //% group="Gear Motors"
+    //% blockNamespace="dreambit"
     //% speed.min=-100 speed.max=100
     export function setMotorBSpeed(speed: number): void {
         setMotorSpeed(speed, ENB_PIN, IN3_PIN, IN4_PIN);
     }
 
     /**
-     * Set Motor A and Motor B speeds
+     * Set both motors' speed and direction
      */
     //% block="Set Motor A speed to $speedA and Motor B speed to $speedB"
     //% group="Gear Motors"
+    //% blockNamespace="dreambit"
     //% speedA.min=-100 speedA.max=100
     //% speedB.min=-100 speedB.max=100
     export function setBothMotorSpeeds(speedA: number, speedB: number): void {
@@ -53,11 +51,13 @@ namespace dreambit {
      */
     //% block="Stop both motors"
     //% group="Gear Motors"
+    //% blockNamespace="dreambit"
     export function stopMotors(): void {
         pins.analogWritePin(ENA_PIN, 0);
         pins.analogWritePin(ENB_PIN, 0);
     }
 
+    // Internal helper
     function setMotorSpeed(speed: number, enPin: AnalogPin, in1: DigitalPin, in2: DigitalPin): void {
         if (speed < 0) {
             pins.digitalWritePin(in1, 0);
@@ -72,6 +72,8 @@ namespace dreambit {
     // --- ULTRASONIC SENSOR GROUP ---
 
     //% block="μs"
+    //% group="Ultrasonic Sensor"
+    //% blockNamespace="dreambit"
     export enum PingUnit {
         MicroSeconds,
         //% block="cm"
@@ -85,6 +87,7 @@ namespace dreambit {
      */
     //% blockId=sonar_ping block="ping trig %trig|echo %echo|unit %unit"
     //% group="Ultrasonic Sensor"
+    //% blockNamespace="dreambit"
     export function ping(trig: DigitalPin, echo: DigitalPin, unit: PingUnit, maxCmDistance = 500): number {
         pins.setPull(trig, PinPullMode.PullNone);
         pins.digitalWritePin(trig, 0);
